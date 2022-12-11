@@ -1,0 +1,33 @@
+﻿@model Employees_Test.Models.Employee
+@{
+    ViewData["Title"] = "Добавление пользователя";
+}
+<form asp-action="create" asp-controller="home" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label asp-for="FIO" class="control-label">ФИО</label>
+        <input  required type="text" asp-for="FIO" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="department" class="control-label">Название отдела</label>
+        <input  required type="text" asp-for="department" class="form-control" />
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="Phone"  class="control-label">Номер телефона</label>
+        <input  required type="text" asp-for="Phone" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image" class="control-label">Фотография </label>
+        <br>
+        <input required type="file" asp-for="Image" />
+    </div>
+
+
+    <div class="form-group">
+        <button type="submit">Отправить</button>
+    </div>
+
+</form>

@@ -1,0 +1,97 @@
+﻿@model dynamic
+@using PagedList.Mvc;
+@{
+    ViewData["Title"] = "Справочник сотрудников";
+}
+<div>
+    <div class="nav">
+        <a asp-action="Create" style="text-decoration: none; ">
+            <button asp-action="Create" class="add">Добавить</button>
+        </a>
+    </div>
+
+    <form asp-action="index" asp-controller="home">
+        <div class="nav">
+            <input name="SearchString" value="@Model.SearchString" list="character" type="text" placeholder="Поиск">
+            <datalist id="character">
+                @{
+                    int i = 0;
+                }
+                @foreach (var item in Model.AllEmployees)
+                {
+                    @if (i == 5) { break; }
+                    <option value="@item.FIO"></option>
+
+                    i++;
+                }
+                @foreach (var item in Model.AllEmployees)
+                {
+                    @if (i == 10) { break; }
+                    <option value="@item.Phone"></option>
+
+                    i++;
+                }
+            </datalist>
+
+            <a asp-action="Index" style="text-decoration: none;" asp-controller="Home">
+                <button asp-action="Index" asp-controller="Home">🔍</button>
+            </a>
+        </div>
+    </form>
+
+    <table>
+        <tr>
+            <th>ФИО</th>
+            <th>Название отдела</th>
+            <th>Номер телефона</th>
+            <th>Фотография</th>
+            <th>⚙️</th>
+        </tr>
+        @foreach (var item in Model.EmployeesPaging)
+        {
+            <tr>
+                <td>@item.FIO</td>
+                <td>@item.department</td>
+                <td>@item.Phone</td>
+                <td>
+                    @if (item.Image != null)
+                    {
+                        <img width="80" height="80" src="@item.Image" />
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Home" asp-route-id="@item.Id">
+                        <button asp-action="Edit" asp-controller="Home" asp-route-id="@item.Id" class="but">✏️</button>
+                    </a>
+                    <br>
+                    <a asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id">
+                        <button asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id" class="but">✕</button>
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+    <div style="margin-left:10px;">
+
+        <br>
+        Страница @(Model.EmployeesPaging.PageCount < Model.EmployeesPaging.PageNumber ? 0 : Model.EmployeesPaging.PageNumber) из @Model.EmployeesPaging.PageCount
+        <br>
+
+        <form asp-action="index" asp-controller="home">
+            @if (Model.EmployeesPaging.PageNumber != 1)
+            {
+                <a asp-action="Index" style="text-decoration: none; " asp-controller="Home" asp-route-SearchString="@Model.SearchString" asp-route-page="@(Model.EmployeesPaging.PageNumber - 1)">
+                    <button asp-action="Index" asp-controller="Home" class="butN" asp-route-SearchString="@Model.SearchString" asp-route-page="@(Model.EmployeesPaging.PageNumber - 1)">Назад</button>
+                </a>
+            }
+
+            @if (Model.EmployeesPaging.PageNumber != Model.EmployeesPaging.PageCount)
+            {
+                <a asp-action="Index" style="text-decoration:none;" asp-controller="Home" asp-route-SearchString="@Model.SearchString" asp-route-page="@(Model.EmployeesPaging.PageNumber + 1)">
+                    <button asp-action="Index" asp-controller="Home" class="butN" asp-route-SearchString="@Model.SearchString" asp-route-page="@(Model.EmployeesPaging.PageNumber + 1)">Вперёд</button>
+                </a>
+            }
+        </form>
+
+    </div>
+</div>

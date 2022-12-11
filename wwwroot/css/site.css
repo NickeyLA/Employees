@@ -1,0 +1,42 @@
+﻿
+div {
+    background-color: #424242;
+    padding: 3px;
+}
+
+table {
+    margin-top: 10px;
+    width: 98%;
+    margin-left: 10px;
+    color: white;
+}
+
+th {
+    text-align: center;
+    border: 2px solid black;
+}
+
+td {
+    text-align: center;
+    border: 2px solid black;
+}
+
+.add {
+    margin-right: 10px;
+}
+
+.nav {
+    margin-left: 10px;
+}
+
+.but {
+    width: 40px;
+    height: 35px;
+}
+
+.butN {
+    width: 90px;
+    height: auto;
+    margin-right: 10px;
+    margin-top: 10px;
+}
